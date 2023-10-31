@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodoro/ProviderClass.dart/TimerClass.dart';
+import 'package:pomodoro/class/dbhelper.dart';
+import 'package:pomodoro/class/pomodoroDao.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,9 +42,13 @@ class Templete_AnimationState extends State<TempleteAnimation>
     sharedPreferences = await SharedPreferences.getInstance();
   }
 
+
+
   @override
   void initState() {
     super.initState();
+ 
+
     // ! For Animation
     initSharedPreference();
     debugPrint("SharedPreference Çalıştı");
@@ -128,6 +134,7 @@ class Templete_AnimationState extends State<TempleteAnimation>
                     Navigator.of(context).push(
                       showPicker(
                         showSecondSelector: true,
+                        is24HrFormat: true,
                         context: context,
                         value: provider.changableTime,
                         onChange: provider.changeChangebleTime,
@@ -259,6 +266,7 @@ class Templete_AnimationState extends State<TempleteAnimation>
               child: Padding(
                   padding: const EdgeInsets.only(left: 20),
                   child: Container(
+                    
                     decoration: BoxDecoration(
                       color: Colors.pink,
                       borderRadius: BorderRadius.circular(20),

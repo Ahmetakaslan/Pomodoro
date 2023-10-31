@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:pomodoro/ProviderClass.dart/ScoreCounter.dart';
 import 'package:pomodoro/ProviderClass.dart/StartStopButton.dart';
 import 'package:pomodoro/ProviderClass.dart/timePicker.dart';
+import 'package:pomodoro/class/pomodoro.dart';
+import 'package:pomodoro/class/pomodoroDao.dart';
 import 'package:pomodoro/constants/constants.dart';
 import 'package:pomodoro/widgets/Animation.dart';
 import 'package:provider/provider.dart';
@@ -25,9 +27,15 @@ class TimerClass with ChangeNotifier {
   Timer? timer;
   //! burada düzenleme yapılacaj 29.10.2023
   late Time defaultTimeeee = Time(
-      hour: sharedPreferences!.getInt("hour") == null ? 0 : sharedPreferences!.getInt("hour")!,
-      minute: sharedPreferences!.getInt("minute") == null ? 25: sharedPreferences!.getInt("minute")!,
-      second: sharedPreferences!.getInt("second") == null ? 0 : sharedPreferences!.getInt("second")!);
+      hour: sharedPreferences!.getInt("hour") == null
+          ? 0
+          : sharedPreferences!.getInt("hour")!,
+      minute: sharedPreferences!.getInt("minute") == null
+          ? 25
+          : sharedPreferences!.getInt("minute")!,
+      second: sharedPreferences!.getInt("second") == null
+          ? 0
+          : sharedPreferences!.getInt("second")!);
 
   Time changableTime = Time(hour: 0, minute: 30, second: 0);
 
@@ -48,6 +56,7 @@ class TimerClass with ChangeNotifier {
   int second = 0;
 
   void changeChangebleTime(Time newTime) {
+    //! burada
     changableTime = newTime;
     hour = newTime.hour;
     minute = newTime.minute;
@@ -62,17 +71,21 @@ class TimerClass with ChangeNotifier {
 
   void restart(BuildContext context) {
     var provider = Provider.of<TimePicker>(context, listen: false).valDateTime;
-    defaultTimeeee = Time(hour: provider.hour, minute: provider.minute, second: 0);
+    defaultTimeeee =
+        Time(hour: provider.hour, minute: provider.minute, second: 0);
     notifyListeners();
   }
 
+  // ! Start Timer
   Future<void> startTime(Time time, BuildContext context, Function fun) async {
     var provider = Provider.of<TimePicker>(context, listen: false).valDateTime;
+    var newTime = time;
 
     // ! will decrease  counter
     hour = time.hour;
     minute = time.minute;
     second = time.second;
+
     timer = Timer.periodic(
       Duration(seconds: 1),
       (timer) async {
@@ -100,13 +113,25 @@ class TimerClass with ChangeNotifier {
               ),
             ),
           );
+          //! Add Database
+          var pomodoro = Pomodoro(
+            id: 0,
+            hour: newTime.hour,
+            minute: newTime.minute,
+            second: newTime.second,
+            timesPomodoro: 1,
+            date: DateTime.now().toString().substring(0, 10),
+          );
+
+          // ignore: use_build_context_synchronously
+          Provider.of<PomodoroDao>(context, listen: false).insertData(pomodoro);
 
           //! We restart here
           defaultTimeeee = Time(
               hour: provider.hour,
               minute: provider.minute,
               second: provider.second);
-          ;
+          changableTime = Time(hour: 0, minute: 30, second: 0);
         } else {
           // ! basic algorithim
           if (second > 0) {

@@ -7,6 +7,7 @@ import 'package:pomodoro/ProviderClass.dart/TempleteOfCostumButto.dart';
 import 'package:pomodoro/ProviderClass.dart/TimerClass.dart';
 import 'package:pomodoro/ProviderClass.dart/isAnimate.dart';
 import 'package:pomodoro/ProviderClass.dart/timePicker.dart';
+import 'package:pomodoro/class/pomodoroDao.dart';
 import 'package:pomodoro/responsive/responsive.dart';
 import 'package:provider/provider.dart';
 
@@ -43,6 +44,9 @@ void main() {
       ),
         ChangeNotifierProvider(
         create: (context) => TimePicker(),
+      ),
+        ChangeNotifierProvider(
+        create: (context) => PomodoroDao(),
       ),
       
     

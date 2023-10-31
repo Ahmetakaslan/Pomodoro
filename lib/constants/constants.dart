@@ -9,7 +9,10 @@ SizedBox kDefSizedBoxHeight = SizedBox(
 //! Defult TextStyle
 
 const TextStyle kDefTextStyle = TextStyle(
-  fontSize: 25,
+  fontSize: 30,
+);
+const TextStyle kDefTextStyleData = TextStyle(
+  fontSize: 20,
 );
 
 //! Changable TextStyle
