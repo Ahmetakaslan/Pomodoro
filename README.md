@@ -3,6 +3,7 @@
 A new Flutter project.
 
 ## Getting Started
+[Video](https://drive.google.com/file/d/155lhBp1sErMneeoLORNtmdNljAAAF6-9/view?usp=drive_link)
 
 This project is a starting point for a Flutter application.
 
