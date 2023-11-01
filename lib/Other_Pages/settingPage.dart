@@ -33,7 +33,7 @@ class Setting extends StatelessWidget {
                       builder: (context) => Data(),
                     ));
               },
-              child: Text("Data"),
+              child: Text("Data",style: kDefTextStyleData,),
             ),
             CupertinoButton(
               onPressed: () {
@@ -70,7 +70,7 @@ class Setting extends StatelessWidget {
                   },
                 );
               },
-              child: Text("Change Default Time"),
+              child: Text("Change Default Time",style: kDefTextStyleData,),
             ),
           ],
         ),

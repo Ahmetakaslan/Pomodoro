@@ -44,6 +44,7 @@ dependencies:
   path: ^1.8.3
   sqflite_migration_plan: ^1.0.0
   sqflite_migration: ^0.3.0
+  flutter_slidable: ^3.0.0
   
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:pomodoro/Dbclass/pomodoro.dart';
 import 'package:pomodoro/Dbclass/pomodoroDao.dart';
 import 'package:pomodoro/constants/constants.dart';
@@ -24,6 +25,20 @@ class _DataState extends State<Data> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => kdefaultAlertAlldata(context),
+              );
+            },
+            icon: Icon(Icons.delete),
+          ),
+          SizedBox(
+            width: 20,
+          ),
+        ],
         title: const Text(
           "Data",
           style: kDefTextStyle,
@@ -53,14 +68,39 @@ class _DataState extends State<Data> {
                       scrollDirection: Axis.horizontal,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            defColumn("Date", "${a[index].date}"),
-                            defColumn("hour", "${a[index].hour}"),
-                            defColumn("Minute", "${a[index].minute}"),
-                            defColumn("Second", "${a[index].second}"),
-                            delete(context, a[index].id),
-                          ],
+                        child: Slidable(
+                          endActionPane: ActionPane(
+                            motion: ScrollMotion(),
+                            children: [
+                              Container(
+                                height: double.infinity,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.red,
+                                ),
+                                child: IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () {
+                                    setState(() {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) =>
+                                            kdefaultAlert(context, a[index].id),
+                                      );
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              defColumn("Date", "${a[index].date}"),
+                              defColumn("hour", "${a[index].hour}"),
+                              defColumn("Minute", "${a[index].minute}"),
+                              defColumn("Second", "${a[index].second}"),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -92,16 +132,4 @@ class _DataState extends State<Data> {
       ),
     );
   }
-
-  IconButton delete(BuildContext context, int id) {
-    return IconButton(
-      onPressed: () {
-        setState(() {
-          Provider.of<PomodoroDao>(context, listen: false).deleteData(id);
-        });
-      },
-      icon: Icon(Icons.delete),
-    );
-  }
-
 }

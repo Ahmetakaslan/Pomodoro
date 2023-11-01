@@ -26,7 +26,10 @@ class PomodoroDao with ChangeNotifier {
       },
     );
   }
-
+  Future<void> deleteAllData()async{
+    var db=await DbHelper.connectDatabase();
+    db.delete("pomodoro");
+  }
   //! insert Data from db
   Future<void> insertData(Pomodoro a) async {
     var db = await DbHelper.connectDatabase();
@@ -44,6 +47,7 @@ class PomodoroDao with ChangeNotifier {
 
     await db.delete("pomodoro", where: 'id = ?', whereArgs: [id]);
     print("Deleted");
+    
     
     notifyListeners();
   }
