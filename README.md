@@ -4,7 +4,7 @@ A new Flutter project.
 
 ## Getting Started
 https://drive.google.com/file/d/155lhBp1sErMneeoLORNtmdNljAAAF6-9/view?usp=sharing
-[![Video](https://www.example.com/your-image-link.jpg)](https://drive.google.com/file/d/155lhBp1sErMneeoLORNtmdNljAAAF6-9/view?usp=sharing)
+[![Video](video.png)](https://drive.google.com/file/d/155lhBp1sErMneeoLORNtmdNljAAAF6-9/view?usp=sharing)
 
 
 This project is a starting point for a Flutter application.
