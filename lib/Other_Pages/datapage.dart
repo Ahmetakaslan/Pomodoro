@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro/class/pomodoro.dart';
-import 'package:pomodoro/class/pomodoroDao.dart';
+import 'package:pomodoro/Dbclass/pomodoro.dart';
+import 'package:pomodoro/Dbclass/pomodoroDao.dart';
 import 'package:pomodoro/constants/constants.dart';
 import 'package:provider/provider.dart';
 

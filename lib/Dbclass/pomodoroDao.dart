@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:pomodoro/class/pomodoro.dart';
+import 'package:pomodoro/Dbclass/pomodoro.dart';
 
 import 'dbhelper.dart';
 

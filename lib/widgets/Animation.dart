@@ -3,8 +3,6 @@ import 'dart:math';
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodoro/ProviderClass.dart/TimerClass.dart';
-import 'package:pomodoro/class/dbhelper.dart';
-import 'package:pomodoro/class/pomodoroDao.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,12 +40,9 @@ class Templete_AnimationState extends State<TempleteAnimation>
     sharedPreferences = await SharedPreferences.getInstance();
   }
 
-
-
   @override
   void initState() {
     super.initState();
- 
 
     // ! For Animation
     initSharedPreference();
@@ -91,21 +86,7 @@ class Templete_AnimationState extends State<TempleteAnimation>
     return Scaffold(
       appBar: MyAppBar(),
       body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          /**
-      *  decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Colors.blue,
-                Colors.red,
-              ],
-            )
-          ),
-      */
-          child: MyBody()),
+          height: double.infinity, width: double.infinity, child: MyBody()),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -148,15 +129,7 @@ class Templete_AnimationState extends State<TempleteAnimation>
                       animationController.reverse();
                       provider4.changeMainisAnimate(true);
                     }
-                    /**
-                     *  else {
-                      provider2.changeCostumButton(false);
-                      provider3.changeIsClick(true);
-                      animationController.reverse();
-                      provider4.changeMainisAnimate(true);
-                      //  providerStartStop.changeisStartButton(false);
-                    }
-                     */
+
                     provider.restart(context);
                   },
                   iconData: Icons.watch_later_outlined,
@@ -266,7 +239,6 @@ class Templete_AnimationState extends State<TempleteAnimation>
               child: Padding(
                   padding: const EdgeInsets.only(left: 20),
                   child: Container(
-                    
                     decoration: BoxDecoration(
                       color: Colors.pink,
                       borderRadius: BorderRadius.circular(20),

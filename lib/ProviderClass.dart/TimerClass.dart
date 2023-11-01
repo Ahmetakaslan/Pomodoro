@@ -4,11 +4,11 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:day_night_time_picker/lib/state/time.dart';
 
 import 'package:flutter/material.dart';
+import 'package:pomodoro/Dbclass/pomodoro.dart';
+import 'package:pomodoro/Dbclass/pomodoroDao.dart';
 import 'package:pomodoro/ProviderClass.dart/ScoreCounter.dart';
 import 'package:pomodoro/ProviderClass.dart/StartStopButton.dart';
 import 'package:pomodoro/ProviderClass.dart/timePicker.dart';
-import 'package:pomodoro/class/pomodoro.dart';
-import 'package:pomodoro/class/pomodoroDao.dart';
 import 'package:pomodoro/constants/constants.dart';
 import 'package:pomodoro/widgets/Animation.dart';
 import 'package:provider/provider.dart';

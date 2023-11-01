@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro/Dbclass/pomodoroDao.dart';
 import 'package:pomodoro/MyMobileHomePage.dart';
 import 'package:pomodoro/ProviderClass.dart/ScoreCounter.dart';
 import 'package:pomodoro/ProviderClass.dart/StartStopButton.dart';
@@ -7,7 +8,6 @@ import 'package:pomodoro/ProviderClass.dart/TempleteOfCostumButto.dart';
 import 'package:pomodoro/ProviderClass.dart/TimerClass.dart';
 import 'package:pomodoro/ProviderClass.dart/isAnimate.dart';
 import 'package:pomodoro/ProviderClass.dart/timePicker.dart';
-import 'package:pomodoro/class/pomodoroDao.dart';
 import 'package:pomodoro/responsive/responsive.dart';
 import 'package:provider/provider.dart';
 
