@@ -3,8 +3,8 @@
 A new Flutter project.
 
 ## Getting Started
-https://drive.google.com/file/d/155lhBp1sErMneeoLORNtmdNljAAAF6-9/view?usp=drive_link
 
+https://drive.google.com/file/d/155lhBp1sErMneeoLORNtmdNljAAAF6-9/view?usp=sharing
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
