@@ -59,48 +59,48 @@ class _DataState extends State<Data> {
                 reverse: true,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.grey),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
+                  return Slidable(
+                    endActionPane: ActionPane(
+                      motion: ScrollMotion(),
+                      children: [
+                        //! We can delete a data with this Container
+                        Container(
+                          margin: EdgeInsets.all(8),
+                          width: 150,
+                          height: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.red,
+                          ),
+                          child: IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              setState(() {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      kdefaultAlert(context, a[index].id),
+                                );
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    child: Container(
+                      margin: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.grey),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Slidable(
-                          endActionPane: ActionPane(
-                            motion: ScrollMotion(),
-                            children: [
-                              Container(
-                                height: double.infinity,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.red,
-                                ),
-                                child: IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () {
-                                    setState(() {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) =>
-                                            kdefaultAlert(context, a[index].id),
-                                      );
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              defColumn("Date", "${a[index].date}"),
-                              defColumn("hour", "${a[index].hour}"),
-                              defColumn("Minute", "${a[index].minute}"),
-                              defColumn("Second", "${a[index].second}"),
-                            ],
-                          ),
+                        child: Row(
+                          children: [
+                            defColumn("Date", "${a[index].date}"),
+                            defColumn("hour", "${a[index].hour}"),
+                            defColumn("Minute", "${a[index].minute}"),
+                            defColumn("Second", "${a[index].second}"),
+                          ],
                         ),
                       ),
                     ),

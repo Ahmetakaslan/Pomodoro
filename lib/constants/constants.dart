@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pomodoro/Dbclass/pomodoro.dart';
 import 'package:pomodoro/Dbclass/pomodoroDao.dart';
 import 'package:pomodoro/main.dart';
+import 'package:pomodoro/widgets/FacButton.dart';
 import 'package:provider/provider.dart';
 
 SizedBox kDefSizedBoxWith = SizedBox(
@@ -16,6 +17,9 @@ SizedBox kDefSizedBoxHeight = SizedBox(
 const TextStyle kDefTextStyle = TextStyle(
   fontSize: 30,
 );
+const TextStyle kDefTextStyle2 = TextStyle(
+  fontSize: 20,
+);
 const TextStyle kDefTextStyleData = TextStyle(
   fontSize: 20,
 );
@@ -28,7 +32,7 @@ TextStyle kChangbleTextStyle(
   return TextStyle(fontSize: fontSize);
 }
 
-AlertDialog kdefaultAlert(BuildContext context,int id) {
+AlertDialog kdefaultAlert(BuildContext context, int id) {
   return AlertDialog(
     content: Container(
       decoration: BoxDecoration(
@@ -43,7 +47,7 @@ AlertDialog kdefaultAlert(BuildContext context,int id) {
     actions: [
       TextButton(
         onPressed: () {
-           Provider.of<PomodoroDao>(context, listen: false).deleteData(id);
+          Provider.of<PomodoroDao>(context, listen: false).deleteData(id);
           Navigator.pop(context);
         },
         child: Icon(
@@ -63,6 +67,7 @@ AlertDialog kdefaultAlert(BuildContext context,int id) {
     ],
   );
 }
+
 AlertDialog kdefaultAlertAlldata(BuildContext context) {
   return AlertDialog(
     content: Container(
@@ -78,7 +83,7 @@ AlertDialog kdefaultAlertAlldata(BuildContext context) {
     actions: [
       TextButton(
         onPressed: () {
-           Provider.of<PomodoroDao>(context, listen: false).deleteAllData();
+          Provider.of<PomodoroDao>(context, listen: false).deleteAllData();
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -103,3 +108,33 @@ AlertDialog kdefaultAlertAlldata(BuildContext context) {
   );
 }
 
+AlertDialog kdefForBreakTimeAler(bool is10,bool is15 ,bool is20) {
+  return AlertDialog(
+    actions: [
+      FloatingActionButton.extended(
+        onPressed: () {
+          is10=true;
+          is15=false;
+          is20=false;
+        },
+        label: Text("10"),
+      ),
+       FloatingActionButton.extended(
+        onPressed: () {
+            is10=false;
+          is15=true;
+          is20=false;
+        },
+        label: Text("15"),
+      ),
+       FloatingActionButton.extended(
+        onPressed: () {
+            is10=false;
+          is15=false;
+          is20=true;
+        },
+        label: Text("20"),
+      ),
+    ],
+  );
+}

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:pomodoro/ProviderClass.dart/BreakTime.dart';
 import 'package:pomodoro/ProviderClass.dart/TimerClass.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -83,6 +84,8 @@ class Templete_AnimationState extends State<TempleteAnimation>
 
   @override
   Widget build(BuildContext context) {
+    var provider5 = Provider.of<BreakTime>(context, listen: false);
+
     return Scaffold(
       appBar: MyAppBar(),
       body: Container(
@@ -92,7 +95,6 @@ class Templete_AnimationState extends State<TempleteAnimation>
         children: [
           //!Costum button
           //!  4 buttons and 1 container here
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -126,6 +128,7 @@ class Templete_AnimationState extends State<TempleteAnimation>
                     if (provider2.isClickCostumButton == false) {
                       provider2.changeCostumButton(true);
                       provider3.changeIsClick(false);
+                      provider5.changeisTimeToBreak(false);
                       animationController.reverse();
                       provider4.changeMainisAnimate(true);
                     }
@@ -157,6 +160,7 @@ class Templete_AnimationState extends State<TempleteAnimation>
                     if (provider.isClickDefButton == false) {
                       provider.changeIsClick(true);
                       provider3.changeCostumButton(false);
+                      provider5.changeisTimeToBreak(false);
                       animationController.reverse();
                       provider2.changeMainisAnimate(true);
                     } /**

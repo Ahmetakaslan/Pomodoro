@@ -9,7 +9,7 @@ import 'package:pomodoro/constants/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../ProviderClass.dart/timePicker.dart';
+import '../ProviderClass.dart/SharedPrefernces.dart';
 
 class Setting extends StatelessWidget {
   Setting({super.key});

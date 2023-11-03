@@ -10,6 +10,7 @@ class TimePicker with ChangeNotifier {
       minute: sharedPreferences!.getInt("minute")!,
       second: sharedPreferences!.getInt("second")!);
   Time changableTime = Time(hour: 0, minute: 30, second: 0);
+  
   TimePicker() {
     debugPrint("Constructor Çalıştı");
     _fThat();
@@ -41,4 +42,8 @@ class TimePicker with ChangeNotifier {
   get hour => sharedPreferences!.getInt("hour");
   get minute => sharedPreferences!.getInt("minute");
   get second => sharedPreferences!.getInt("second");
+
+  get hourBreak => sharedPreferences!.getInt("hourBreak");
+  get minuteBreak => sharedPreferences!.getInt("minuteBreak");
+  get secondBreak => sharedPreferences!.getInt("secondBreak");
 }

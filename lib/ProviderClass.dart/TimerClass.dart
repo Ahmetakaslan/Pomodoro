@@ -6,36 +6,37 @@ import 'package:day_night_time_picker/lib/state/time.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodoro/Dbclass/pomodoro.dart';
 import 'package:pomodoro/Dbclass/pomodoroDao.dart';
+import 'package:pomodoro/ProviderClass.dart/BreakTime.dart';
 import 'package:pomodoro/ProviderClass.dart/ScoreCounter.dart';
 import 'package:pomodoro/ProviderClass.dart/StartStopButton.dart';
-import 'package:pomodoro/ProviderClass.dart/timePicker.dart';
+import 'package:pomodoro/ProviderClass.dart/SharedPrefernces.dart';
 import 'package:pomodoro/constants/constants.dart';
 import 'package:pomodoro/widgets/Animation.dart';
+import 'package:pomodoro/widgets/ShowCardForBreak.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class TimerClass with ChangeNotifier {
   AudioPlayer audioPlayer = AudioPlayer();
-  TimerClass() {
-    runShared();
-  }
-  Future<void> runShared() async {
-    prefs = await SharedPreferences.getInstance();
-  }
 
-  late SharedPreferences prefs;
   Timer? timer;
   //! burada düzenleme yapılacaj 29.10.2023
-  late Time defaultTimeeee = Time(
-      hour: sharedPreferences!.getInt("hour") == null
-          ? 0
-          : sharedPreferences!.getInt("hour")!,
-      minute: sharedPreferences!.getInt("minute") == null
-          ? 25
-          : sharedPreferences!.getInt("minute")!,
-      second: sharedPreferences!.getInt("second") == null
-          ? 0
-          : sharedPreferences!.getInt("second")!);
+  late Time defaultTime = Time(
+      hour: sharedPreferences!.getInt("hour") ?? 0,
+      minute: sharedPreferences!.getInt("minute") ??25,
+      second: sharedPreferences!.getInt("second") ?? 0);
+
+    Time breakTime = Time(
+      hour: sharedPreferences!.getInt("hourBreak") ?? 0,
+      minute: sharedPreferences!.getInt("minuteBreak") ?? 15,
+      second: sharedPreferences!.getInt("secondBreak")?? 0);
+
+  void changeBreakTime(Time dateTime) {
+       breakTime = Time(
+        hour: breakTime.hour,
+        minute: breakTime.minute,
+        second: breakTime.second);
+       notifyListeners();
+  }
 
   Time changableTime = Time(hour: 0, minute: 30, second: 0);
 
@@ -43,9 +44,9 @@ class TimerClass with ChangeNotifier {
     var provider = Provider.of<TimePicker>(context);
     // ignore: unnecessary_null_comparison
     if (provider.valDateTime == null) {
-      defaultTimeeee = Time(hour: hour, minute: minute, second: second);
+      defaultTime = Time(hour: hour, minute: minute, second: second);
     }
-    defaultTimeeee = Time(
+    defaultTime = Time(
         hour: provider.valDateTime.hour,
         minute: provider.valDateTime.minute,
         second: provider.valDateTime.second);
@@ -65,13 +66,13 @@ class TimerClass with ChangeNotifier {
   }
 
   void changeDefTime(Time newTime) {
-    defaultTimeeee = newTime;
+    defaultTime = newTime;
     notifyListeners();
   }
 
   void restart(BuildContext context) {
     var provider = Provider.of<TimePicker>(context, listen: false).valDateTime;
-    defaultTimeeee =
+    defaultTime =
         Time(hour: provider.hour, minute: provider.minute, second: 0);
     notifyListeners();
   }
@@ -91,14 +92,28 @@ class TimerClass with ChangeNotifier {
       (timer) async {
         if (hour == 0 && second == 0 && minute == 0) {
           timer.cancel();
+
           Provider.of<ScoreCounter>(context, listen: false)
               .changeScoreCounter();
           Provider.of<StartAndStopButons>(context, listen: false)
               .changeisStartButton(false);
-
           //! the alarm will go off
           await audioPlayer.play(
             AssetSource('alarm.mp3'),
+          );
+
+          Future.delayed(
+            Duration(seconds: 2),
+            () {
+              Provider.of<BreakTime>(context, listen: false)
+                  .changeisTimeToBreak(true);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ShowBreakCard(),
+                ),
+              );
+            },
           );
 
           ScaffoldMessenger.of(context).showSnackBar(
@@ -127,7 +142,7 @@ class TimerClass with ChangeNotifier {
           Provider.of<PomodoroDao>(context, listen: false).insertData(pomodoro);
 
           //! We restart here
-          defaultTimeeee = Time(
+          defaultTime = Time(
               hour: provider.hour,
               minute: provider.minute,
               second: provider.second);
@@ -136,6 +151,7 @@ class TimerClass with ChangeNotifier {
           // ! basic algorithim
           if (second > 0) {
             second--;
+            //! it will be new
             fun(Time(hour: hour, minute: minute, second: second));
           } else {
             second = 59;
