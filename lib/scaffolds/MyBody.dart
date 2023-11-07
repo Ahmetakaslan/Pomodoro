@@ -6,6 +6,7 @@ import 'package:pomodoro/ProviderClass.dart/StartStopButton.dart';
 import 'package:pomodoro/ProviderClass.dart/TempleteDefaultScheme.dart';
 import 'package:pomodoro/ProviderClass.dart/TempleteOfCostumButto.dart';
 import 'package:pomodoro/ProviderClass.dart/TimerClass.dart';
+import 'package:pomodoro/ProviderClass.dart/TimerClassBreak.dart';
 import 'package:pomodoro/constants/constants.dart';
 import 'package:pomodoro/widgets/CostumCounter.dart';
 import 'package:pomodoro/widgets/DefaultcounterTemplete.dart';
@@ -43,23 +44,73 @@ class MyBody extends StatelessWidget {
                 : provider3.isClickCostumButton == true
                     ? CostumCounter()
                     : Container(),
-        provider.isClickDefButton == true ||
-                provider3.isClickCostumButton == true ||
-                provider4.isTimeToBreak == true
+        provider4.isTimeToBreak == true
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  provider2.isClickStartButton == false
-                      ? myStartButton(context)
+                  provider2.isClickStartButtonBreak == false
+                      ? myStartButtonForBreak(context)
                       : Container(),
                   kDefSizedBoxWith,
-                  myStopButton(context),
+                  myStopButtonForBreak(context),
                 ],
               )
-            : Container(),
+            : provider.isClickDefButton == true ||
+                    provider3.isClickCostumButton == true
+                ? Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      provider2.isClickStartButton == false
+                          ? myStartButton(context)
+                          : Container(),
+                      kDefSizedBoxWith,
+                      myStopButton(context),
+                    ],
+                  )
+                : Container(),
       ],
     );
   }
+
+  //!  Break Stratt Stop
+  FloatingActionButton myStartButtonForBreak(BuildContext context) =>
+      FloatingActionButton(
+        onPressed: () {
+          var providerStratStop =
+              Provider.of<StartAndStopButons>(context, listen: false);
+          var provTimerClassBreak =
+              Provider.of<TimerClassBreak>(context, listen: false);
+
+          provTimerClassBreak.startTime(provTimerClassBreak.breakTime, context,
+              provTimerClassBreak.changeBreakTime);
+          providerStratStop.isClickStartButtonBreak == true
+              ? providerStratStop.changeisStartButtonBreak(false)
+              : providerStratStop.changeisStartButtonBreak(true);
+        },   child: FaIcon(FontAwesomeIcons.hourglass,color: Colors.green,),
+      );
+  FloatingActionButton myStopButtonForBreak(BuildContext context) =>
+      FloatingActionButton(
+        onPressed: () {
+          var providerStratStop =
+              Provider.of<StartAndStopButons>(context, listen: false);
+          var provTimerClassBreak =
+              Provider.of<TimerClassBreak>(context, listen: false);
+          var provBreakTime = Provider.of<BreakTime>(context, listen: false);
+
+          provTimerClassBreak.startTime(provTimerClassBreak.breakTime, context,
+              provBreakTime.changeisTimeToBreak);
+          providerStratStop.changeisStartButtonBreak(false);
+          providerStratStop.changeisStopButtonBreak(true);
+          provTimerClassBreak.timer!.cancel();
+        },
+          child: FaIcon(FontAwesomeIcons.stop,color: Colors.green,),
+      );
+
+  //!  Break Stratt Stop
+  // todo
+  //?
+  //todo
+  //* */
   //! Start Button
 
   FloatingActionButton myStartButton(BuildContext context) =>
@@ -68,41 +119,42 @@ class MyBody extends StatelessWidget {
           var provider =
               Provider.of<StartAndStopButons>(context, listen: false);
           var provider2 = Provider.of<TimerClass>(context, listen: false);
+        
           var provider3 =
               Provider.of<TempleteOfDefaultButton>(context, listen: false);
           var provider4 =
               Provider.of<TempleteOfCoostumBUtton>(context, listen: false);
-          var provider5 = Provider.of<BreakTime>(context, listen: false);
+       
           provider.isClickStartButton == true
               ? provider.changeisStartButton(false)
               : provider.changeisStartButton(true);
 
           provider2.startTime(
             //! Control of Which Time
-            provider5.isTimeToBreak == true
-                ? provider2.breakTime
-                : provider3.isClickDefButton == true
-                    ? provider2.defaultTime
-                    : provider4.isClickCostumButton
-                        ? provider2.changableTime
-                        : Time(hour: 0, minute: 0, second: 0),
+
+            provider3.isClickDefButton == true
+                ? provider2.defaultTime
+                : provider4.isClickCostumButton
+                    ? provider2.changableTime
+                    : Time(hour: 0, minute: 0, second: 0),
             //? Context
             context,
             //! i choiced wich button is clicked Default or Costum in here
-            provider5.isTimeToBreak == true
-                ? provider2.changeBreakTime
-                : provider3.isClickDefButton == true
+    
+              provider3.isClickDefButton == true
                     ? provider2.changeDefTime
                     : provider4.isClickCostumButton
                         ? provider2.changeChangebleTime
                         : () {},
           );
+
           if (provider3.isClickDefButton == true) {
             provider4.changeCostumButton(false);
           }
           if (provider4.isClickCostumButton == true) {
             provider3.changeIsClick(false);
           }
+       
         },
         child: FaIcon(FontAwesomeIcons.hourglass),
       );

@@ -89,7 +89,10 @@ class Templete_AnimationState extends State<TempleteAnimation>
     return Scaffold(
       appBar: MyAppBar(),
       body: Container(
-          height: double.infinity, width: double.infinity, child: MyBody()),
+        height: double.infinity,
+        width: double.infinity,
+        child: MyBody(),
+      ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -132,12 +135,16 @@ class Templete_AnimationState extends State<TempleteAnimation>
                       animationController.reverse();
                       provider4.changeMainisAnimate(true);
                     }
+                    if (provider5.isTimeToBreak == true) {
+                      provider3.changeIsClick(false);
+                      provider2.changeCostumButton(false);
+                    }
 
                     provider.restart(context);
                   },
                   iconData: Icons.watch_later_outlined,
                   color: Colors.green,
-                  text: Text("Costum"),
+                  text: Text("Custom"),
                 ),
               ),
               kDefSizedBoxWith,
@@ -156,6 +163,8 @@ class Templete_AnimationState extends State<TempleteAnimation>
                     var provider3 = Provider.of<TempleteOfCoostumBUtton>(
                         context,
                         listen: false);
+                    var provider5 =
+                        Provider.of<BreakTime>(context, listen: false);
 
                     if (provider.isClickDefButton == false) {
                       provider.changeIsClick(true);
@@ -171,6 +180,11 @@ class Templete_AnimationState extends State<TempleteAnimation>
                       provider2.changeMainisAnimate(true);
                       //  providerStartStop.changeisStartButton(false);
                     } */
+
+                     if (provider5.isTimeToBreak == true) {
+                      provider.changeIsClick(false);
+                      provider3.changeCostumButton(false);
+                    }
                   },
                   iconData: Icons.watch_later_outlined,
                   color: Colors.red,

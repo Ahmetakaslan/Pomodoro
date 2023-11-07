@@ -22,21 +22,8 @@ class TimerClass with ChangeNotifier {
   //! burada düzenleme yapılacaj 29.10.2023
   late Time defaultTime = Time(
       hour: sharedPreferences!.getInt("hour") ?? 0,
-      minute: sharedPreferences!.getInt("minute") ??25,
+      minute: sharedPreferences!.getInt("minute") ?? 25,
       second: sharedPreferences!.getInt("second") ?? 0);
-
-    Time breakTime = Time(
-      hour: sharedPreferences!.getInt("hourBreak") ?? 0,
-      minute: sharedPreferences!.getInt("minuteBreak") ?? 15,
-      second: sharedPreferences!.getInt("secondBreak")?? 0);
-
-  void changeBreakTime(Time dateTime) {
-       breakTime = Time(
-        hour: breakTime.hour,
-        minute: breakTime.minute,
-        second: breakTime.second);
-       notifyListeners();
-  }
 
   Time changableTime = Time(hour: 0, minute: 30, second: 0);
 
@@ -72,8 +59,7 @@ class TimerClass with ChangeNotifier {
 
   void restart(BuildContext context) {
     var provider = Provider.of<TimePicker>(context, listen: false).valDateTime;
-    defaultTime =
-        Time(hour: provider.hour, minute: provider.minute, second: 0);
+    defaultTime = Time(hour: provider.hour, minute: provider.minute, second: 0);
     notifyListeners();
   }
 
@@ -97,23 +83,23 @@ class TimerClass with ChangeNotifier {
               .changeScoreCounter();
           Provider.of<StartAndStopButons>(context, listen: false)
               .changeisStartButton(false);
+        /**
+         *   Provider.of<BreakTime>(context, listen: false)
+              .changeisTimeToBreak(true);
+         */
           //! the alarm will go off
           await audioPlayer.play(
             AssetSource('alarm.mp3'),
           );
-
-          Future.delayed(
-            Duration(seconds: 2),
-            () {
-              Provider.of<BreakTime>(context, listen: false)
-                  .changeisTimeToBreak(true);
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ShowBreakCard(),
-                ),
-              );
-            },
+/**
+ *           Provider.of<BreakTime>(context, listen: false)
+              .changeisTimeToBreak(true);
+ */
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ShowBreakCard(),
+            ),
           );
 
           ScaffoldMessenger.of(context).showSnackBar(

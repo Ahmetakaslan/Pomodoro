@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro/ProviderClass.dart/TimerClass.dart';
+import 'package:pomodoro/ProviderClass.dart/TimerClassBreak.dart';
 import 'package:pomodoro/constants/constants.dart';
 import 'package:pomodoro/responsive/responsive.dart';
 import 'package:provider/provider.dart';
@@ -14,10 +14,7 @@ class BreakTimeWidget extends StatelessWidget {
       height: size.width > desktopScreen ? size.height * .5 : size.height * .4,
       width: size.width > desktopScreen ? size.width * .5 : size.width * 7,
       child: Column(
-        
         children: [
-         
-       
           Expanded(
             flex: 2,
             child: Row(
@@ -30,19 +27,22 @@ class BreakTimeWidget extends StatelessWidget {
           ),
           Expanded(
             flex: 4,
-            child: Consumer<TimerClass>(
+            child: Consumer<TimerClassBreak>(
               builder: (context, value, child) {
                 return Row(
                   children: [
                     defContainer(
-                        color: Colors.grey,
-                        text: value.breakTime.hour.toString()),
+                      color: Colors.grey,
+                      text: value.breakTime.hour.toString(),
+                    ),
                     defContainer(
-                        color: Colors.grey,
-                        text: value.breakTime.minute.toString()),
+                      color: Colors.grey,
+                      text: value.breakTime.minute.toString(),
+                    ),
                     defContainer(
-                        color: Colors.grey,
-                        text: value.breakTime.second.toString()),
+                      color: Colors.grey,
+                      text: value.breakTime.second.toString(),
+                    ),
                   ],
                 );
               },

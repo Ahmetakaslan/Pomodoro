@@ -2,10 +2,9 @@ import 'package:day_night_time_picker/day_night_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodoro/ProviderClass.dart/BreakTime.dart';
-import 'package:pomodoro/ProviderClass.dart/TimerClass.dart';
+import 'package:pomodoro/ProviderClass.dart/TimerClassBreak.dart';
 import 'package:pomodoro/constants/constants.dart';
 import 'package:pomodoro/main.dart';
-import 'package:pomodoro/scaffolds/MyBody.dart';
 import 'package:pomodoro/widgets/Animation.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,7 +20,8 @@ class _ShowBreakCardState extends State<ShowBreakCard> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<BreakTime>(context, listen: false);
-    var provider2 = Provider.of<TimerClass>(context, listen: false);
+    var providerBreakTime =
+        Provider.of<TimerClassBreak>(context, listen: false);
     DateTime dateTime = DateTime(0, 0, 0, 0, 30, 0, 0, 0);
     return Scaffold(
       appBar: AppBar(),
@@ -32,59 +32,54 @@ class _ShowBreakCardState extends State<ShowBreakCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                defContainer(Colors.white, "10b.png", ()async {
+                defContainer(Colors.white, "10b.png", () async {
                   provider.changeis10(true);
                   provider.changeisTimeToBreak(true);
                   print("basıldı");
-                  var sharedPreferences = await SharedPreferences.getInstance();
-                  sharedPreferences.setInt("hourBreak", 0);
-                  sharedPreferences.setInt("minuteBreak", 10);
-                  sharedPreferences.setInt("secondBreak", 0);
-              
-             
-                    setState(() {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TempleteAnimation(),
-                        ));
-                  });
-            
-             
+
+                  providerBreakTime
+                      .changeBreakTime(Time(hour: 0, minute: 10, second: 0));
+                  Future.delayed(
+                    Duration(seconds: 2),
+                    () {
+                      setState(() {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TempleteAnimation(),
+                            ));
+                      });
+                    },
+                  );
                 }),
-                defContainer(Colors.white, "15b.png", () async{
-                   var sharedPreferences = await SharedPreferences.getInstance();
-                  sharedPreferences.setInt("hourBreak", 0);
-                  sharedPreferences.setInt("minuteBreak", 15);
-                  sharedPreferences.setInt("secondBreak", 0);
-                   provider.changeis15(true);
+                defContainer(Colors.white, "15b.png", () async {
+
+                  providerBreakTime
+                      .changeBreakTime(Time(hour: 0, minute: 15, second: 0));
+                  provider.changeis15(true);
                   provider.changeisTimeToBreak(true);
-         
-                    setState(() {
+
+                  setState(() {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => TempleteAnimation(),
                         ));
                   });
-       
                 }),
-                defContainer(Colors.white, "20b.png", ()async {
+                defContainer(Colors.white, "20b.png", () async {
                   provider.changeis20(true);
                   provider.changeisTimeToBreak(true);
-                    var sharedPreferences = await SharedPreferences.getInstance();
-                  sharedPreferences.setInt("hourBreak", 0);
-                  sharedPreferences.setInt("minuteBreak", 20);
-                  sharedPreferences.setInt("secondBreak", 0);
-   
-                    setState(() {
+
+                  providerBreakTime
+                      .changeBreakTime(Time(hour: 0, minute: 20, second: 0));
+                  setState(() {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => TempleteAnimation(),
                         ));
                   });
-               
                 }),
               ],
             ),
@@ -114,16 +109,10 @@ class _ShowBreakCardState extends State<ShowBreakCard> {
                                     DateTime(0, 0, 0, 0, 30, 0, 0, 0),
                                 mode: CupertinoDatePickerMode.time,
                                 onDateTimeChanged: (value) {
-                                  provider2.changeBreakTime(Time(
+                                  providerBreakTime.changeBreakTime(Time(
                                       hour: value.hour, minute: value.minute));
                                   provider.changeisTimeToBreak(true);
-                                  sharedPreferences?.setInt(
-                                      "hourBreak", value.hour);
-                                  sharedPreferences?.setInt(
-                                      "minuteBreak", value.minute);
-
-                                  sharedPreferences?.setInt(
-                                      "secondBreak", value.second);
+                                 
                                 },
                                 use24hFormat: true,
                                 backgroundColor: Colors.blue[300],
