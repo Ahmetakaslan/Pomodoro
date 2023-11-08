@@ -3,6 +3,9 @@
 A new Flutter project.
 
 ## Getting Started
+<a href="https://drive.google.com/file/d/155lhBp1sErMneeoLORNtmdNljAAAF6-9/view?usp=sharing">
+  <img src="video.png" alt="Videonuzun Başlığı" width="50" height="50">
+</a>
 
 This project is a starting point for a Flutter application.
 
