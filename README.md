@@ -3,7 +3,7 @@
 A new Flutter project.
 
 ## Getting Started
-
+<a href="https://github.com/Ahmetakaslan/Pomodoro//releases/tag/v2" download="Bmi.apk"><img src="down.png" alt="Download the app" style="width:100px;height:70px;"></a>
 v2
 <a href="https://drive.google.com/file/d/1rVBZcA5fcEv0sn-oDy-qsVwTB3GIQ39v/view?usp=drive_link">
   <img src="video.png" alt="Videonuzun Başlığı" width="50" height="50">
