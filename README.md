@@ -5,6 +5,7 @@ A new Flutter project.
 ## Getting Started
 ## if you want to download
 <a href="https://github.com/Ahmetakaslan/Pomodoro/releases/download/v2/app-release.apk" download="Bmi.apk"><img src="down (1).png" alt="Download the app" style="width:100px;height:70px;"></a>
+<br> </br>
 v2
 <a href="https://drive.google.com/file/d/1rVBZcA5fcEv0sn-oDy-qsVwTB3GIQ39v/view?usp=drive_link">
   <img src="video.png" alt="Videonuzun Başlığı" width="50" height="50">
