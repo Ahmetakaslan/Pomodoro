@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TempleteOfCoostumBUtton with ChangeNotifier {
+class TempleteOfCoostumButton with ChangeNotifier {
   bool isClickCostumButton = false;
 
   void changeCostumButton(bool a) {

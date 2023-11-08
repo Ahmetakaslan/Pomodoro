@@ -6,7 +6,6 @@ import 'package:day_night_time_picker/lib/state/time.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodoro/Dbclass/pomodoro.dart';
 import 'package:pomodoro/Dbclass/pomodoroDao.dart';
-import 'package:pomodoro/ProviderClass.dart/BreakTime.dart';
 import 'package:pomodoro/ProviderClass.dart/ScoreCounter.dart';
 import 'package:pomodoro/ProviderClass.dart/StartStopButton.dart';
 import 'package:pomodoro/ProviderClass.dart/SharedPrefernces.dart';
@@ -66,6 +65,9 @@ class TimerClass with ChangeNotifier {
   // ! Start Timer
   Future<void> startTime(Time time, BuildContext context, Function fun) async {
     var provider = Provider.of<TimePicker>(context, listen: false).valDateTime;
+    Provider.of<StartAndStopButons>(context, listen: false)
+        .changeisStartButtonBreak(false);
+
     var newTime = time;
 
     // ! will decrease  counter
@@ -83,7 +85,7 @@ class TimerClass with ChangeNotifier {
               .changeScoreCounter();
           Provider.of<StartAndStopButons>(context, listen: false)
               .changeisStartButton(false);
-        /**
+          /**
          *   Provider.of<BreakTime>(context, listen: false)
               .changeisTimeToBreak(true);
          */
@@ -104,7 +106,7 @@ class TimerClass with ChangeNotifier {
 
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              duration: Duration(seconds: 10),
+              duration: Duration(seconds: 5),
               backgroundColor: Colors.transparent,
               content: Center(
                 child: Text(

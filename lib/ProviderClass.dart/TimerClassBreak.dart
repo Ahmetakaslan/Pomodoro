@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:pomodoro/Dbclass/pomodoro.dart';
 import 'package:pomodoro/Dbclass/pomodoroDao.dart';
 import 'package:pomodoro/ProviderClass.dart/BreakTime.dart';
+
 import 'package:pomodoro/constants/constants.dart';
 import 'package:pomodoro/widgets/Animation.dart';
 import 'package:provider/provider.dart';
@@ -18,19 +19,20 @@ class TimerClassBreak with ChangeNotifier {
       second: sharedPreferences!.getInt("secondBreak") ?? 0);
 
   void changeBreakTime(Time dateTime) {
-    breakTime = Time(
-        hour: dateTime.hour,
-        minute: dateTime.minute,
-        second: dateTime.second);
-    sharedPreferences?.setInt("hourBreak", dateTime.hour);
+    breakTime =dateTime;
+/**
+ *  sharedPreferences?.setInt("hourBreak", dateTime.hour);
     sharedPreferences?.setInt("minuteBreak", dateTime.minute);
     sharedPreferences?.setInt("secondBreak", dateTime.second);
+ */
     notifyListeners();
   }
 
   int hour = 0;
   int minute = 20;
   int second = 0;
+
+ 
   // ! Start Timer
   Future<void> startTime(Time time, BuildContext context, Function fun) async {
     var newTime = time;
@@ -39,9 +41,8 @@ class TimerClassBreak with ChangeNotifier {
     hour = time.hour;
     minute = time.minute;
     second = time.second;
-
     timer = Timer.periodic(
-      Duration(seconds: 1),
+      const Duration(seconds: 1),
       (timer) async {
         if (hour == 0 && second == 0 && minute == 0) {
           timer.cancel();
@@ -50,21 +51,16 @@ class TimerClassBreak with ChangeNotifier {
               .changeisTimeToBreak(false);
           //! the alarm will go off
           await audioPlayer.play(
-            AssetSource('alarm.mp3'),
+            AssetSource('break.mp3'),
           );
 
-          Future.delayed(
-            Duration(milliseconds: 1000),
-            () {
-              Provider.of<BreakTime>(context, listen: false)
-                  .changeisTimeToBreak(false);
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => TempleteAnimation(),
-                ),
-              );
-            },
+          Provider.of<BreakTime>(context, listen: false)
+              .changeisTimeToBreak(false);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TempleteAnimation(),
+            ),
           );
 
           ScaffoldMessenger.of(context).showSnackBar(
@@ -97,14 +93,12 @@ class TimerClassBreak with ChangeNotifier {
             second--;
             //! it will be new
             fun(Time(hour: hour, minute: minute, second: second));
-            notifyListeners();
           } else {
             second = 59;
 
             if (minute > 0) {
               minute--;
               fun(Time(hour: hour, minute: minute, second: second));
-              notifyListeners();
             } else {
               minute = 59;
 
@@ -112,7 +106,6 @@ class TimerClassBreak with ChangeNotifier {
                 hour--;
               }
               fun(Time(hour: hour, minute: minute, second: second));
-              notifyListeners();
             }
           }
         }

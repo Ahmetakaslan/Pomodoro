@@ -20,7 +20,7 @@ class MyBody extends StatelessWidget {
   Widget build(BuildContext context) {
     var provider = Provider.of<TempleteOfDefaultButton>(context);
     var provider2 = Provider.of<StartAndStopButons>(context);
-    var provider3 = Provider.of<TempleteOfCoostumBUtton>(context);
+    var provider3 = Provider.of<TempleteOfCoostumButton>(context);
     var provider4 = Provider.of<BreakTime>(context);
 
     return Column(
@@ -75,35 +75,43 @@ class MyBody extends StatelessWidget {
   //!  Break Stratt Stop
   FloatingActionButton myStartButtonForBreak(BuildContext context) =>
       FloatingActionButton(
+        heroTag: "myStartButtonForBreak",
         onPressed: () {
           var providerStratStop =
               Provider.of<StartAndStopButons>(context, listen: false);
           var provTimerClassBreak =
               Provider.of<TimerClassBreak>(context, listen: false);
-
           provTimerClassBreak.startTime(provTimerClassBreak.breakTime, context,
               provTimerClassBreak.changeBreakTime);
           providerStratStop.isClickStartButtonBreak == true
               ? providerStratStop.changeisStartButtonBreak(false)
               : providerStratStop.changeisStartButtonBreak(true);
-        },   child: FaIcon(FontAwesomeIcons.hourglass,color: Colors.green,),
+        },
+        child: FaIcon(
+          FontAwesomeIcons.hourglass,
+          color: Colors.green,
+        ),
       );
+
+//todo Stop break button
   FloatingActionButton myStopButtonForBreak(BuildContext context) =>
       FloatingActionButton(
+        heroTag: "myStopButtonForBreak",
         onPressed: () {
           var providerStratStop =
               Provider.of<StartAndStopButons>(context, listen: false);
           var provTimerClassBreak =
               Provider.of<TimerClassBreak>(context, listen: false);
-          var provBreakTime = Provider.of<BreakTime>(context, listen: false);
-
-          provTimerClassBreak.startTime(provTimerClassBreak.breakTime, context,
-              provBreakTime.changeisTimeToBreak);
-          providerStratStop.changeisStartButtonBreak(false);
-          providerStratStop.changeisStopButtonBreak(true);
           provTimerClassBreak.timer!.cancel();
+       
+          print("break stop button tıklandı");
+
+          providerStratStop.changeisStartButtonBreak(false);
         },
-          child: FaIcon(FontAwesomeIcons.stop,color: Colors.green,),
+        child: FaIcon(
+          FontAwesomeIcons.stop,
+          color: Colors.green,
+        ),
       );
 
   //!  Break Stratt Stop
@@ -115,16 +123,17 @@ class MyBody extends StatelessWidget {
 
   FloatingActionButton myStartButton(BuildContext context) =>
       FloatingActionButton(
+        heroTag: "myStartButton",
         onPressed: () {
           var provider =
               Provider.of<StartAndStopButons>(context, listen: false);
           var provider2 = Provider.of<TimerClass>(context, listen: false);
-        
+
           var provider3 =
               Provider.of<TempleteOfDefaultButton>(context, listen: false);
           var provider4 =
-              Provider.of<TempleteOfCoostumBUtton>(context, listen: false);
-       
+              Provider.of<TempleteOfCoostumButton>(context, listen: false);
+
           provider.isClickStartButton == true
               ? provider.changeisStartButton(false)
               : provider.changeisStartButton(true);
@@ -140,12 +149,12 @@ class MyBody extends StatelessWidget {
             //? Context
             context,
             //! i choiced wich button is clicked Default or Costum in here
-    
-              provider3.isClickDefButton == true
-                    ? provider2.changeDefTime
-                    : provider4.isClickCostumButton
-                        ? provider2.changeChangebleTime
-                        : () {},
+
+            provider3.isClickDefButton == true
+                ? provider2.changeDefTime
+                : provider4.isClickCostumButton
+                    ? provider2.changeChangebleTime
+                    : () {},
           );
 
           if (provider3.isClickDefButton == true) {
@@ -154,13 +163,13 @@ class MyBody extends StatelessWidget {
           if (provider4.isClickCostumButton == true) {
             provider3.changeIsClick(false);
           }
-       
         },
         child: FaIcon(FontAwesomeIcons.hourglass),
       );
   //! Stop Button
   FloatingActionButton myStopButton(BuildContext context) =>
       FloatingActionButton(
+          heroTag: "myStopButton",
           onPressed: () {
             var provider1 =
                 Provider.of<StartAndStopButons>(context, listen: false);

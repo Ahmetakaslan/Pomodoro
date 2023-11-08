@@ -7,7 +7,6 @@ import 'package:pomodoro/constants/constants.dart';
 import 'package:pomodoro/main.dart';
 import 'package:pomodoro/widgets/Animation.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ShowBreakCard extends StatefulWidget {
   const ShowBreakCard({super.key});
@@ -22,7 +21,6 @@ class _ShowBreakCardState extends State<ShowBreakCard> {
     var provider = Provider.of<BreakTime>(context, listen: false);
     var providerBreakTime =
         Provider.of<TimerClassBreak>(context, listen: false);
-    DateTime dateTime = DateTime(0, 0, 0, 0, 30, 0, 0, 0);
     return Scaffold(
       appBar: AppBar(),
       body: Container(
@@ -39,18 +37,15 @@ class _ShowBreakCardState extends State<ShowBreakCard> {
 
                   providerBreakTime
                       .changeBreakTime(Time(hour: 0, minute: 10, second: 0));
-                  Future.delayed(
-                    Duration(seconds: 2),
-                    () {
-                      setState(() {
+           
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) => TempleteAnimation(),
                             ));
-                      });
-                    },
-                  );
+               
+                
+               
                 }),
                 defContainer(Colors.white, "15b.png", () async {
 
@@ -59,13 +54,13 @@ class _ShowBreakCardState extends State<ShowBreakCard> {
                   provider.changeis15(true);
                   provider.changeisTimeToBreak(true);
 
-                  setState(() {
+            
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => TempleteAnimation(),
                         ));
-                  });
+            
                 }),
                 defContainer(Colors.white, "20b.png", () async {
                   provider.changeis20(true);
@@ -73,13 +68,13 @@ class _ShowBreakCardState extends State<ShowBreakCard> {
 
                   providerBreakTime
                       .changeBreakTime(Time(hour: 0, minute: 20, second: 0));
-                  setState(() {
+               
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => TempleteAnimation(),
                         ));
-                  });
+               
                 }),
               ],
             ),

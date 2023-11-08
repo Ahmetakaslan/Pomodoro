@@ -32,7 +32,7 @@ void main() {
         create: (context) => StartAndStopButons(),
       ),
       ChangeNotifierProvider(
-        create: (context) => TempleteOfCoostumBUtton(),
+        create: (context) => TempleteOfCoostumButton(),
       ),
       ChangeNotifierProvider(
         create: (context) => ScoreCounter(),

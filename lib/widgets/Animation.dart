@@ -40,10 +40,13 @@ class Templete_AnimationState extends State<TempleteAnimation>
   Future<void> initSharedPreference() async {
     sharedPreferences = await SharedPreferences.getInstance();
   }
+  
+  
 
   @override
   void initState() {
     super.initState();
+
 
     // ! For Animation
     initSharedPreference();
@@ -108,7 +111,7 @@ class Templete_AnimationState extends State<TempleteAnimation>
                   function: () {
                     var provider =
                         Provider.of<TimerClass>(context, listen: false);
-                    var provider2 = Provider.of<TempleteOfCoostumBUtton>(
+                    var provider2 = Provider.of<TempleteOfCoostumButton>(
                         context,
                         listen: false);
                     var provider3 = Provider.of<TempleteOfDefaultButton>(
@@ -160,7 +163,7 @@ class Templete_AnimationState extends State<TempleteAnimation>
                         listen: false);
                     var provider2 =
                         Provider.of<IsAnimate>(context, listen: false);
-                    var provider3 = Provider.of<TempleteOfCoostumBUtton>(
+                    var provider3 = Provider.of<TempleteOfCoostumButton>(
                         context,
                         listen: false);
                     var provider5 =
